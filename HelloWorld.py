@@ -57,7 +57,7 @@ image = image + face
 
 # Display the results
 if ("SITK_NOSHOW" not in os.environ):
-  # sitk.Show(image, title="Hello World: Python", debugOn=True)
+  sitk.Show(image, title="Hello World: Python", debugOn=True)
   pass
 
 print("Program Works!")
