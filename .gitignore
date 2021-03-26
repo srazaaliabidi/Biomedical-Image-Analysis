@@ -1,4 +1,6 @@
 Fiji.app/
+data/*
+!data/.gitkeep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
