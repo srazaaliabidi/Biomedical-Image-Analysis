@@ -1,6 +1,10 @@
 Fiji.app/
-data/*
-!data/.gitkeep
+data/raw/*
+data/processed/*
+data/results/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/results/.gitkeep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
