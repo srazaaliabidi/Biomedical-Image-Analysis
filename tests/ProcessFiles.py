@@ -16,5 +16,5 @@ for dicom_name in dicom_names:
   image = sitk.ReadImage(dicom_name)
   image = sitk.IntensityWindowing(image, -1000, 1000, 0, 255)
   image = sitk.Cast(image, sitk.sitkUInt8)
-  sitk.WriteImage(image, "data/processed/" + str(counter) + ".png")
+  sitk.WriteImage(image, "data/processed/lung/" + str(counter) + ".png")
   counter += 1

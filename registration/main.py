@@ -13,11 +13,20 @@ def segmentation(fixed_file_name, moving_file_name, output_file_name):
   fixed = sitk.ReadImage(fixed_file_name, sitk.sitkFloat32)
   moving = sitk.ReadImage(moving_file_name, sitk.sitkFloat32)
 
+  transformDomainMeshSize = [8] * moving.GetDimension()
+  tx = sitk.BSplineTransformInitializer(fixed,
+                                      transformDomainMeshSize)
+
   R = sitk.ImageRegistrationMethod()
-  R.SetMetricAsMeanSquares()
-  R.SetOptimizerAsRegularStepGradientDescent(4.0, .01, 200)
-  R.SetInitialTransform(sitk.TranslationTransform(fixed.GetDimension()))
+  R.SetMetricAsCorrelation()
+  R.SetOptimizerAsLBFGSB(gradientConvergenceTolerance=1e-5,
+                         numberOfIterations=100,
+                         maximumNumberOfCorrections=5,
+                         maximumNumberOfFunctionEvaluations=1000,
+                         costFunctionConvergenceFactor=1e+7)
+  R.SetInitialTransform(tx, True)
   R.SetInterpolator(sitk.sitkLinear)
+  # R.SetInitialTransform(sitk.TranslationTransform(fixed.GetDimension()))
 
   R.AddCommand(sitk.sitkIterationEvent, lambda: command_iteration(R))
 
@@ -44,4 +53,4 @@ def segmentation(fixed_file_name, moving_file_name, output_file_name):
     cimg = sitk.Compose(simg1, simg2, simg1 // 2. + simg2 // 2.)
     sitk.Show(cimg, "ImageRegistration1 Composition")
 
-segmentation("data/processed/54.png", "data/processed/54.png", "data/results/output.txt")
+segmentation("data/processed/covid/48.png", "data/processed/covid/49.png", "data/results/output.txt")
