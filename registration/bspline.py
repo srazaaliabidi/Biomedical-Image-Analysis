@@ -51,6 +51,6 @@ def segmentation(fixed_file_name, moving_file_name, output_file_name):
     simg1 = sitk.Cast(sitk.RescaleIntensity(fixed), sitk.sitkUInt8)
     simg2 = sitk.Cast(sitk.RescaleIntensity(out), sitk.sitkUInt8)
     cimg = sitk.Compose(simg1, simg2, simg1 // 2. + simg2 // 2.)
-    sitk.Show(cimg, "ImageRegistration1 Composition")
+    sitk.Show(simg2, "ImageRegistration1 Composition")
 
-segmentation("data/processed/covid/48.png", "data/processed/covid/49.png", "data/results/output.txt")
+segmentation("data/processed/covid/a/6/170.png", "data/processed/covid/b/5/239.png", "data/results/output.txt")
